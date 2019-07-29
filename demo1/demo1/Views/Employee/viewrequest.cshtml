@@ -1,0 +1,30 @@
+﻿@using demo1.Models;
+@{
+    ViewBag.Title = "viewrequest";
+    List<RequisitionForm> requestlist = (List<RequisitionForm>)ViewData["requestlist"];
+    Employee emp = (Employee)ViewData["userobj"];
+}
+@Html.Partial("_employeeheader")
+@Html.Partial("_employeeMenuFragment")
+
+<div style="margin-left:25%">
+    <h2>viewrequest</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>Form id</td>
+                <td>Description</td>
+                <td>Status</td>
+            </tr>
+        </thead>
+        @foreach (var item in requestlist)
+        {
+            <tr>
+                <td><a href="@Url.Action("view_single_request", "Employee", new { form_id = @item.FormNumber })">@(emp.DepartmentCode + "/" + (1000 + int.Parse(item.FormNumber)).ToString())</a> </td>
+                <td>@item.Comments</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </table>
+</div>
+

@@ -1,0 +1,19 @@
+﻿@using demo1.Models;
+@{
+    ViewBag.Title = "Index";
+    Employee emp = (Employee)ViewData["userobj"];
+}
+@Html.Partial("_employeeheader")
+@Html.Partial("_employeeMenuFragment")
+
+<div id="main" style="margin-left:25%">
+    <h1>
+        hello @emp.FirstName @emp.LastName
+    </h1>
+    <div align="center">
+        <img style="height:500px;width:500px" src="https://miro.medium.com/max/1200/0*pAdZLfSqNrMZAAPA.jpg" />
+    </div>
+
+    <a href="@Url.Action("sendmail", "Employee")">Send email</a>
+</div>
+

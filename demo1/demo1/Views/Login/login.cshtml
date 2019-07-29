@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "login";
+    string name = (string)ViewData["utype"];
+}
+
+@{
+    if (@name.Equals("hod"))
+    {
+        @Html.Partial("_hodMenuFragment")
+
+        <div id="main" style="margin-left:15%">
+            <div align="center">
+                <img src="https://cdn.winsightmedia.com/platform/files/public/600x450/smiling-employee-business-woman.jpg" />
+            </div>
+        </div>
+    }
+
+    else if (name.Equals("employee"))
+    {
+        @Html.Partial("_employeeMenuFragment")
+        <div id="main" style="margin-left:15%">
+            <div align="center">
+                <img style="height:500px;width:500px" src="https://miro.medium.com/max/1200/0*pAdZLfSqNrMZAAPA.jpg" />
+            </div>
+        </div>
+    }
+}
+
+
+
+
+
+
+
+
+

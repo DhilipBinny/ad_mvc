@@ -1,0 +1,25 @@
+﻿@using demo1.Models;
+@{
+    ViewBag.Title = "_employeeMenuFragment";
+    Employee emp;
+}
+
+@if ((Session["user"])!=null)
+{
+
+    emp = (Employee)HttpContext.Current.Session["user"];
+}
+else
+{
+    emp = new Employee();
+}
+
+<!-- ***************************** -->
+<!-- Sidebar -->
+<div class="w3-sidebar w3-bar-block w3-light-grey " style="width:15%;left:0">
+    <a href='@Url.Action("index", "Employee",new { id=emp.Id})' class="w3-bar-item w3-button w3-hover-blue w3-xlarge">Employee Home</a>
+    <a href='@Url.Action("newrequest", "Employee",new { id=emp.Id})' class="w3-bar-item w3-button w3-hover-blue w3-xlarge">New Request</a>
+    <a href='@Url.Action("viewrequest", "Employee",new { id=emp.Id})' class="w3-bar-item w3-button w3-hover-blue w3-xlarge">View Request(s)</a>
+
+</div>
+<!-- ***************************** -->
