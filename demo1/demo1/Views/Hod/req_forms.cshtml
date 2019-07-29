@@ -1,0 +1,64 @@
+﻿@using demo1.Models;
+@{
+    Boolean req_pending_forms = ViewData["req_pending_forms"] != null ? (Boolean)ViewData["req_pending_forms"] : false;
+    ViewBag.Title = "req_forms";
+    List<RequisitionFormDetail> form_cart = (List<RequisitionFormDetail>)ViewData["form_cart"];
+    Employee emp = (Employee)ViewData["emp"];
+    DepartmentList emp_dept = (DepartmentList)ViewData["emp_dept"];
+    string form_number = (string)ViewData["form_number"];
+    RequisitionForm form = (RequisitionForm)ViewData["req_form"];
+    List<StationeryCatalog> items = (List<StationeryCatalog>)ViewData["catalog_list"];
+   
+}
+@Html.Partial("_hodMenuFragment")
+
+<div style="margin-left:25%">
+    <h3>Form number = @(emp_dept.DepartmentCode + "/" + (1000 + int.Parse(form_number)).ToString())</h3>
+    <h3>Employee name : @emp.FirstName @emp.LastName</h3>
+    <h3>Department name : @emp_dept.DepartmentName</h3>
+    <table id="myTable">
+        <tr>
+            <td>Description</td>
+            <td>Quantity</td>
+        </tr>
+        @if (form_cart != null)
+        {
+            foreach (var item in form_cart)
+            {
+                <tr>
+                    <td>
+                        @items.Find(x => x.ItemNumber == item.ItemNumber).Description
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                </tr>
+            }
+        }
+
+        <tr><td>Comments : </td></tr>
+        <tr>
+            @if (req_pending_forms)
+            {
+                <td>
+                    <input type="text" value="Enter comments " />
+                </td>
+
+            } else if (!req_pending_forms)
+            {
+                <td>
+                    <input type="text" value= @form.Status @form.Comments />
+                </td>
+            }
+            
+            @if (form_cart != null && req_pending_forms)
+            {
+                <td><button>APPROVE</button></td>
+                <td><button>REJECT</button></td>
+            }
+
+
+        </tr>
+
+    </table>
+</div>
