@@ -32,6 +32,7 @@ namespace demo1.Models
         public string ReceivedGoodsFormNo { get; set; }
         public Nullable<System.DateTime> ReceivedDate { get; set; }
         public Nullable<double> ReceivedValue { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }

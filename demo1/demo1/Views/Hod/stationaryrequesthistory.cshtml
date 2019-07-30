@@ -1,9 +1,33 @@
 ﻿
+@using demo1.Models;
 @{
     ViewBag.Title = "stationaryrequesthistory";
-}
-@Html.Partial("_hodMenuFragment")
-<div style="margin-left:20%">
-    <h2>stationary request history</h2>
-</div>
+    List<RequisitionForm> requestlist = (List<RequisitionForm>)ViewData["requestlist"];
+    Employee emp = (Employee)ViewData["userobj"];
+    List<Employee> emp_list = (List<Employee>)ViewData["emp_list"];
 
+}
+@Html.Partial("_hodheader")
+@Html.Partial("_hodMenuFragment")
+<div style="margin-left:25%">
+    <h2>stationary request history</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>Form id</td>
+                <td>Employee</td>
+                <td>Status</td>
+                <td>Date Received</td>
+            </tr>
+        </thead>
+        @foreach (var item in requestlist)
+        {
+            <tr>
+                <td><a href="@Url.Action("req_forms", "Hod", new { form_id = @item.FormNumber })">@(emp.DepartmentCode + "/" + (1000 + int.Parse(item.FormNumber)).ToString())</a> </td>
+                <td>@emp_list.Where(e => e.Id == item.EmployeeId).FirstOrDefault().FirstName @emp_list.Where(e => e.Id == item.EmployeeId).FirstOrDefault().LastName</td>
+                <td>@item.Status</td>
+                <td>@Convert.ToDateTime(@item.DateReceived).Date.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </table>
+</div>

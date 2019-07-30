@@ -1,0 +1,32 @@
+﻿
+@using demo1.Models
+@{
+    ViewBag.Title = "dummy";
+    List<RequisitionFormDetail> req_form_details = (List<RequisitionFormDetail>)ViewData["req_form_details"];
+    List<StationeryCatalog> items = (List<StationeryCatalog>)ViewData["items"];
+}
+<script type="text/javascript">
+    function dummydropdown() {
+        var selected_item = document.getElementById("dummydropdown").options[e.selectedIndex].value;
+        document.getElementById("stock_needed").value = selected_item;
+    };
+</script>
+
+<h2>dummy</h2>
+
+<table>
+    <tr>
+        <td>
+            # bin
+        </td>
+        <td>
+            Description : @Html.DropDownList("Select item", req_form_details.GroupBy(e => e.ItemNumber, (key, e) => e.FirstOrDefault()).Select(item => new SelectListItem { Text = item.ItemNumber, Value = @req_form_details.GroupBy(e=>e.ItemNumber).Select((group, index) => new {sum = group.Sum(e => e.Quantity)}).FirstOrDefault().sum.ToString() }), new { id = "dummydropdown", onchange = "dummydropdown()" }))
+        </td>
+        <td>
+            needed quantity <input type="text" value="" id="stock_needed">
+        </td>
+        <td>
+            Reteieved : 100
+        </td>
+    </tr>
+</table>

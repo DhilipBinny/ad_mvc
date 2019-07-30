@@ -36,7 +36,7 @@ namespace demo1.Models
         }
         public List<StationeryCatalog> get_catalog_items()
         {
-            List<StationeryCatalog> items;
+            List<StationeryCatalog> items; 
             using (stationeryEntities1 db = new stationeryEntities1())
             {
                 items = db.StationeryCatalogs.ToList();
@@ -134,6 +134,7 @@ namespace demo1.Models
                                                      select f).FirstOrDefault();
                 if (old_rec_to_update != null)
                 {
+                    old_rec_to_update.DateReceived = DateTime.Now.Date;
                     old_rec_to_update.Status = "pending";
                 }
                 db.SaveChanges();

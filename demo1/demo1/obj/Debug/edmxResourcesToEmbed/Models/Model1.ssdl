@@ -53,6 +53,9 @@
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
     <Property Name="DepartmentCode" Type="nvarchar" MaxLength="50" />
     <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+    <Property Name="SessionId" Type="nvarchar(max)" />
+    <Property Name="DelegateFrom" Type="datetime" />
+    <Property Name="DelegateTo" Type="datetime" />
   </EntityType>
   <EntityType Name="PurchaseOrderDetails">
     <Key>
@@ -82,6 +85,7 @@
     <Property Name="ReceivedGoodsFormNo" Type="nvarchar" MaxLength="50" />
     <Property Name="ReceivedDate" Type="datetime" />
     <Property Name="ReceivedValue" Type="float" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="RequisitionFormDetails">
     <Key>
@@ -104,6 +108,7 @@
     <Property Name="DateReceived" Type="datetime" />
     <Property Name="Status" Type="nvarchar" MaxLength="50" />
     <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="Notification" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="StationeryCatalog">
     <Key>
@@ -168,6 +173,7 @@
     <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
     <Property Name="UserName" Type="nvarchar" MaxLength="50" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="SessionId" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="StoreManager">
     <Key>
@@ -179,6 +185,7 @@
     <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
     <Property Name="UserName" Type="nvarchar" MaxLength="50" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="SessionId" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="StoreSupervisor">
     <Key>
@@ -190,6 +197,7 @@
     <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
     <Property Name="UserName" Type="nvarchar" MaxLength="50" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="SessionId" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="SupplierList">
     <Key>
@@ -203,32 +211,6 @@
     <Property Name="FaxNo" Type="int" />
     <Property Name="Address" Type="nvarchar(max)" />
   </EntityType>
-  <Association Name="FK__Requisiti__FormN__2739D489">
-    <End Role="RequisitionForms" Type="Self.RequisitionForms" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="RequisitionFormDetails" Type="Self.RequisitionFormDetails" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="RequisitionForms">
-        <PropertyRef Name="FormNumber" />
-      </Principal>
-      <Dependent Role="RequisitionFormDetails">
-        <PropertyRef Name="FormNumber" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Requisiti__ItemN__282DF8C2">
-    <End Role="StationeryCatalog" Type="Self.StationeryCatalog" Multiplicity="0..1" />
-    <End Role="RequisitionFormDetails" Type="Self.RequisitionFormDetails" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="StationeryCatalog">
-        <PropertyRef Name="ItemNumber" />
-      </Principal>
-      <Dependent Role="RequisitionFormDetails">
-        <PropertyRef Name="ItemNumber" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_CollectionPoints_StoreClerk">
     <End Role="StoreClerk" Type="Self.StoreClerk" Multiplicity="1" />
     <End Role="CollectionPoints" Type="Self.CollectionPoints" Multiplicity="0..1" />
@@ -250,6 +232,18 @@
       </Principal>
       <Dependent Role="DepartmentList">
         <PropertyRef Name="CollectionPoint" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DepartmentList_DepartmentHead">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="DepartmentList" Type="Self.DepartmentList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DepartmentList">
+        <PropertyRef Name="HeadId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -297,6 +291,18 @@
         <PropertyRef Name="DepartmentCode" />
       </Principal>
       <Dependent Role="DisbursementLists">
+        <PropertyRef Name="DepartmentCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_DepartmentList">
+    <End Role="DepartmentList" Type="Self.DepartmentList" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DepartmentList">
+        <PropertyRef Name="DepartmentCode" />
+      </Principal>
+      <Dependent Role="Employee">
         <PropertyRef Name="DepartmentCode" />
       </Dependent>
     </ReferentialConstraint>
@@ -370,6 +376,44 @@
       </Principal>
       <Dependent Role="PurchaseOrders">
         <PropertyRef Name="SupplierCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequisitionFormDetails_RequisitionForms">
+    <End Role="RequisitionForms" Type="Self.RequisitionForms" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="RequisitionFormDetails" Type="Self.RequisitionFormDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RequisitionForms">
+        <PropertyRef Name="FormNumber" />
+      </Principal>
+      <Dependent Role="RequisitionFormDetails">
+        <PropertyRef Name="FormNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequisitionFormDetails_StationeryCatalog">
+    <End Role="StationeryCatalog" Type="Self.StationeryCatalog" Multiplicity="0..1" />
+    <End Role="RequisitionFormDetails" Type="Self.RequisitionFormDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StationeryCatalog">
+        <PropertyRef Name="ItemNumber" />
+      </Principal>
+      <Dependent Role="RequisitionFormDetails">
+        <PropertyRef Name="ItemNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequisitionForms_DepartmentHead">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="RequisitionForms" Type="Self.RequisitionForms" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RequisitionForms">
+        <PropertyRef Name="ApprovedBy" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -512,20 +556,16 @@
     <EntitySet Name="StoreManager" EntityType="Self.StoreManager" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StoreSupervisor" EntityType="Self.StoreSupervisor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SupplierList" EntityType="Self.SupplierList" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Requisiti__FormN__2739D489" Association="Self.FK__Requisiti__FormN__2739D489">
-      <End Role="RequisitionForms" EntitySet="RequisitionForms" />
-      <End Role="RequisitionFormDetails" EntitySet="RequisitionFormDetails" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Requisiti__ItemN__282DF8C2" Association="Self.FK__Requisiti__ItemN__282DF8C2">
-      <End Role="StationeryCatalog" EntitySet="StationeryCatalog" />
-      <End Role="RequisitionFormDetails" EntitySet="RequisitionFormDetails" />
-    </AssociationSet>
     <AssociationSet Name="FK_CollectionPoints_StoreClerk" Association="Self.FK_CollectionPoints_StoreClerk">
       <End Role="StoreClerk" EntitySet="StoreClerk" />
       <End Role="CollectionPoints" EntitySet="CollectionPoints" />
     </AssociationSet>
     <AssociationSet Name="FK_DepartmentList_CollectionPoints" Association="Self.FK_DepartmentList_CollectionPoints">
       <End Role="CollectionPoints" EntitySet="CollectionPoints" />
+      <End Role="DepartmentList" EntitySet="DepartmentList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DepartmentList_DepartmentHead" Association="Self.FK_DepartmentList_DepartmentHead">
+      <End Role="Employee" EntitySet="Employee" />
       <End Role="DepartmentList" EntitySet="DepartmentList" />
     </AssociationSet>
     <AssociationSet Name="FK_DepartmentList_Employee" Association="Self.FK_DepartmentList_Employee">
@@ -543,6 +583,10 @@
     <AssociationSet Name="FK_DisbursementLists_DepartmentList" Association="Self.FK_DisbursementLists_DepartmentList">
       <End Role="DepartmentList" EntitySet="DepartmentList" />
       <End Role="DisbursementLists" EntitySet="DisbursementLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_DepartmentList" Association="Self.FK_Employee_DepartmentList">
+      <End Role="DepartmentList" EntitySet="DepartmentList" />
+      <End Role="Employee" EntitySet="Employee" />
     </AssociationSet>
     <AssociationSet Name="FK_PurchaseOrderDetails_PurchaseOrders" Association="Self.FK_PurchaseOrderDetails_PurchaseOrders">
       <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
@@ -567,6 +611,18 @@
     <AssociationSet Name="FK_PurchaseOrders_SupplierList" Association="Self.FK_PurchaseOrders_SupplierList">
       <End Role="SupplierList" EntitySet="SupplierList" />
       <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequisitionFormDetails_RequisitionForms" Association="Self.FK_RequisitionFormDetails_RequisitionForms">
+      <End Role="RequisitionForms" EntitySet="RequisitionForms" />
+      <End Role="RequisitionFormDetails" EntitySet="RequisitionFormDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequisitionFormDetails_StationeryCatalog" Association="Self.FK_RequisitionFormDetails_StationeryCatalog">
+      <End Role="StationeryCatalog" EntitySet="StationeryCatalog" />
+      <End Role="RequisitionFormDetails" EntitySet="RequisitionFormDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequisitionForms_DepartmentHead" Association="Self.FK_RequisitionForms_DepartmentHead">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="RequisitionForms" EntitySet="RequisitionForms" />
     </AssociationSet>
     <AssociationSet Name="FK_RequisitionForms_Employee" Association="Self.FK_RequisitionForms_Employee">
       <End Role="Employee" EntitySet="Employee" />

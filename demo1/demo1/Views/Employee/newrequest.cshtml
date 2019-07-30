@@ -41,7 +41,7 @@
                 </tr>
             }
         }
-        @if (form != null)
+        @if (form != null && form.Comments!="" && form.Comments!=null)
         {
             <tr><td>COMMENTS :  @form.Comments</td></tr>
         }

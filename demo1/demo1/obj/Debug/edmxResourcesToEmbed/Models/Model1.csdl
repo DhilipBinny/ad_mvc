@@ -26,6 +26,8 @@
     <NavigationProperty Name="Employee" Relationship="Self.FK_DepartmentList_Employee" FromRole="DepartmentList" ToRole="Employee" />
     <NavigationProperty Name="DisbursementLists" Relationship="Self.FK_DisbursementLists_DepartmentList" FromRole="DepartmentList" ToRole="DisbursementLists" />
     <NavigationProperty Name="StationeryRetrievalFormDetails" Relationship="Self.FK_StationeryRetrievalFormDetails_DepartmentList" FromRole="DepartmentList" ToRole="StationeryRetrievalFormDetails" />
+    <NavigationProperty Name="Employee1" Relationship="stationeryModel.FK_DepartmentList_DepartmentHead" FromRole="DepartmentList" ToRole="Employee" />
+    <NavigationProperty Name="Employees" Relationship="stationeryModel.FK_Employee_DepartmentList" FromRole="DepartmentList" ToRole="Employee" />
   </EntityType>
   <EntityType Name="DisbursementListDetail">
     <Key>
@@ -65,6 +67,12 @@
     <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="DepartmentLists" Relationship="Self.FK_DepartmentList_Employee" FromRole="Employee" ToRole="DepartmentList" />
     <NavigationProperty Name="RequisitionForms" Relationship="Self.FK_RequisitionForms_Employee" FromRole="Employee" ToRole="RequisitionForms" />
+    <Property Name="SessionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DelegateFrom" Type="DateTime" Precision="3" />
+    <Property Name="DelegateTo" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="DepartmentLists1" Relationship="stationeryModel.FK_DepartmentList_DepartmentHead" FromRole="Employee" ToRole="DepartmentList" />
+    <NavigationProperty Name="DepartmentList" Relationship="stationeryModel.FK_Employee_DepartmentList" FromRole="Employee" ToRole="DepartmentList" />
+    <NavigationProperty Name="RequisitionForms1" Relationship="stationeryModel.FK_RequisitionForms_DepartmentHead" FromRole="Employee" ToRole="RequisitionForm" />
   </EntityType>
   <EntityType Name="PurchaseOrderDetail">
     <Key>
@@ -101,6 +109,7 @@
     <NavigationProperty Name="StoreClerk1" Relationship="Self.FK_PurchaseOrders_StoreClerk1" FromRole="PurchaseOrders" ToRole="StoreClerk" />
     <NavigationProperty Name="StoreSupervisor" Relationship="Self.FK_PurchaseOrders_StoreSupervisor" FromRole="PurchaseOrders" ToRole="StoreSupervisor" />
     <NavigationProperty Name="SupplierList" Relationship="Self.FK_PurchaseOrders_SupplierList" FromRole="PurchaseOrders" ToRole="SupplierList" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="RequisitionFormDetail">
     <Key>
@@ -128,6 +137,8 @@
     <NavigationProperty Name="Employee" Relationship="Self.FK_RequisitionForms_Employee" FromRole="RequisitionForms" ToRole="Employee" />
     <NavigationProperty Name="RequisitionFormDetails" Relationship="Self.FK_RequisitionFormDetails_RequisitionForms" FromRole="RequisitionForms" ToRole="RequisitionFormDetails" />
     <NavigationProperty Name="StoreClerk" Relationship="Self.FK_RequisitionForms_StoreClerk" FromRole="RequisitionForms" ToRole="StoreClerk" />
+    <Property Name="Notification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employee1" Relationship="stationeryModel.FK_RequisitionForms_DepartmentHead" FromRole="RequisitionForm" ToRole="Employee" />
   </EntityType>
   <EntityType Name="StationeryCatalog">
     <Key>
@@ -211,6 +222,7 @@
     <NavigationProperty Name="PurchaseOrders" Relationship="Self.FK_PurchaseOrders_StoreClerk" FromRole="StoreClerk" ToRole="PurchaseOrders" />
     <NavigationProperty Name="PurchaseOrders1" Relationship="Self.FK_PurchaseOrders_StoreClerk1" FromRole="StoreClerk" ToRole="PurchaseOrders" />
     <NavigationProperty Name="RequisitionForms" Relationship="Self.FK_RequisitionForms_StoreClerk" FromRole="StoreClerk" ToRole="RequisitionForms" />
+    <Property Name="SessionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="StoreManager">
     <Key>
@@ -222,6 +234,7 @@
     <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SessionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="StoreSupervisor">
     <Key>
@@ -234,6 +247,7 @@
     <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="PurchaseOrders" Relationship="Self.FK_PurchaseOrders_StoreSupervisor" FromRole="StoreSupervisor" ToRole="PurchaseOrders" />
+    <Property Name="SessionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="SupplierList">
     <Key>
@@ -654,5 +668,53 @@
       <End Role="StockAdjustmentVouchers" EntitySet="StockAdjustmentVouchers" />
       <End Role="StockAdjustmentVoucherDetails" EntitySet="StockAdjustmentVoucherDetails" />
     </AssociationSet>
+    <AssociationSet Name="FK_DepartmentList_DepartmentHead" Association="stationeryModel.FK_DepartmentList_DepartmentHead">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="DepartmentList" EntitySet="DepartmentLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_DepartmentList" Association="stationeryModel.FK_Employee_DepartmentList">
+      <End Role="DepartmentList" EntitySet="DepartmentLists" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequisitionForms_DepartmentHead" Association="stationeryModel.FK_RequisitionForms_DepartmentHead">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="RequisitionForm" EntitySet="RequisitionForms" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_DepartmentList_DepartmentHead">
+    <End Type="stationeryModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="stationeryModel.DepartmentList" Role="DepartmentList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DepartmentList">
+        <PropertyRef Name="HeadId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_DepartmentList">
+    <End Type="stationeryModel.DepartmentList" Role="DepartmentList" Multiplicity="0..1" />
+    <End Type="stationeryModel.Employee" Role="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DepartmentList">
+        <PropertyRef Name="DepartmentCode" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="DepartmentCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequisitionForms_DepartmentHead">
+    <End Type="stationeryModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="stationeryModel.RequisitionForm" Role="RequisitionForm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RequisitionForm">
+        <PropertyRef Name="ApprovedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

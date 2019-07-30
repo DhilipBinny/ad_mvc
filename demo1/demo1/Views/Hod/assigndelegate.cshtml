@@ -1,9 +1,54 @@
-﻿
+﻿@Scripts.Render("~/Scripts/dropdownOnchange.js")
+@using demo1.Models;
 @{
     ViewBag.Title = "assigndelegate";
+    Employee delegate_ = (Employee)ViewData["delegate_"];
+    List<Employee> dept_emp_list = (List<Employee>)ViewData["dept_emp_list"];
 }
+@Html.Partial("_hodheader")
 @Html.Partial("_hodMenuFragment")
 <div style="margin-left:20%">
     <h2>assign delegate</h2>
+
+    <table>
+        <tr>
+            <td>
+                Current Deligate : @delegate_.FirstName @delegate_.LastName
+            </td>
+
+        </tr>
+        <tr>
+            <td>From : @delegate_.DelegateFrom , To: @delegate_.DelegateTo</td>
+        </tr>
+        @using (Html.BeginForm("edit_delegate", "Hod", FormMethod.Post))
+        {
+            <tr>
+                <td>New Delegate Selection : @Html.DropDownList("Select Delegate", dept_emp_list.Select(emp => new SelectListItem { Text = emp.FirstName, Value = emp.Id, Selected = (emp.Id == delegate_.Id) ? true : false }), new { @placeholder = "Select New Delegate", id = "delegate_id", onchange = "onChange_delegate()" })</td>
+                <td><input type="hidden" id="delegate_id_hidden" value="" name="new_delegate_id" /></td>
+                <td ><input type="hidden" id="hidden_dept_head" value=@dept_emp_list.Where(e=>e.Designation=="Head").Select(e=>e.Id).FirstOrDefault().ToString() /></td>
+            </tr>
+            <tr  id="show_hide">
+               
+                <td>
+                    From : <input type="date" min=@DateTime.Now.Date name="from_date" value="" />
+                </td>
+                <td>
+                    To : <input type="date" name="to_date" value="" required/>
+                </td>  
+
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="ASSIGN" />
+                </td>
+                <td>
+                    <button>
+                        CANCEL
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+
 </div>
 

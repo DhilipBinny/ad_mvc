@@ -49,6 +49,9 @@
     <EntitySetMapping Name="Employees">
       <EntityTypeMapping TypeName="stationeryModel.Employee">
         <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="DelegateTo" ColumnName="DelegateTo" />
+          <ScalarProperty Name="DelegateFrom" ColumnName="DelegateFrom" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -76,6 +79,7 @@
     <EntitySetMapping Name="PurchaseOrders">
       <EntityTypeMapping TypeName="stationeryModel.PurchaseOrder">
         <MappingFragment StoreEntitySet="PurchaseOrders">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="PONumber" ColumnName="PONumber" />
           <ScalarProperty Name="SupplierCode" ColumnName="SupplierCode" />
           <ScalarProperty Name="DeliverTo" ColumnName="DeliverTo" />
@@ -104,6 +108,7 @@
     <EntitySetMapping Name="RequisitionForms">
       <EntityTypeMapping TypeName="stationeryModel.RequisitionForm">
         <MappingFragment StoreEntitySet="RequisitionForms">
+          <ScalarProperty Name="Notification" ColumnName="Notification" />
           <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
           <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
           <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
@@ -176,6 +181,7 @@
     <EntitySetMapping Name="StoreClerks">
       <EntityTypeMapping TypeName="stationeryModel.StoreClerk">
         <MappingFragment StoreEntitySet="StoreClerk">
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -188,6 +194,7 @@
     <EntitySetMapping Name="StoreManagers">
       <EntityTypeMapping TypeName="stationeryModel.StoreManager">
         <MappingFragment StoreEntitySet="StoreManager">
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -200,6 +207,7 @@
     <EntitySetMapping Name="StoreSupervisors">
       <EntityTypeMapping TypeName="stationeryModel.StoreSupervisor">
         <MappingFragment StoreEntitySet="StoreSupervisor">
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />

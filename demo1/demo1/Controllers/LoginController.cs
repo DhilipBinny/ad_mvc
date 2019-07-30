@@ -30,7 +30,7 @@ namespace demo1.Controllers
                 user = (from e in db.Employees
                         where e.UserName == Username
                         select e).FirstOrDefault();
-                Debug.WriteLine(user.Password);
+                //Debug.WriteLine(user.Password);
             }
             if (user != null)
             {
@@ -39,9 +39,9 @@ namespace demo1.Controllers
                     if (user.Designation == "Head" || user.Designation == "Delegate")
                     {
                         Session.Add("user", user);
-                        return RedirectToAction("Index", "Hod", user);
+                        return RedirectToAction("Index", "Hod");
                     }
-                    else if (user.Designation == "Employee")
+                    else if (user.Designation == "Employee" || user.Designation=="Rep")
                     {
                         Session.Add("user", user);
                         return RedirectToAction("Index", "Employee");

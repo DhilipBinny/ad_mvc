@@ -47,6 +47,9 @@
         <AssociationConnector Association="stationeryModel.FK_StockAdjustmentVoucherDetails_StationeryCatalog" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel.FK_StationeryRetrievalFormDetails_StationeryRetrievalForms" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel.FK_StockAdjustmentVoucherDetails_StockAdjustmentVouchers" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel.FK_DepartmentList_DepartmentHead" />
+        <AssociationConnector Association="stationeryModel.FK_Employee_DepartmentList" />
+        <AssociationConnector Association="stationeryModel.FK_RequisitionForms_DepartmentHead" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

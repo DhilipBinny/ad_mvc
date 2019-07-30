@@ -2,23 +2,78 @@
 @{
     ViewBag.Title = "Index";
 }
+<style>
+    #Header {
+        background-color: #3498db;
+        border-color: #3498db;
+    }
 
+        #Header ul li a {
+            color: #ffffff;
+        }
+
+    #footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 30px;
+        background-color: #3498db;
+        color: black;
+        text-align: right;
+        padding-top: 5px;
+        padding-right: 15px;
+    }
+
+    #login {
+        border-collapse: collapse;
+        text-align: center;
+        border: 1px solid black;
+        overflow: hidden;
+        margin-top: 150px;
+    }
+
+    #login, th, td {
+        padding: 10px;
+    }
+</style>
 
 @using (Html.BeginForm("Login", "Login", FormMethod.Post))
 {
-    <table align="center">
-        <tr>
-            <td>@Html.LabelFor(x => x.Username)</td>
-            <td>@Html.TextBoxFor(x => x.Username)</td>
-            <td>@Html.ValidationMessageFor(x => x.Username)</td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(x => x.Password)</td>
-            <td>@Html.PasswordFor(x => x.Password)</td>
-            <td>@Html.ValidationMessageFor(x => x.Password)</td>
-        </tr>
-        <tr>
-            <td colspan="2" align="right"><input type="submit" value="Login"></td>
-        </tr>
-    </table>
+    <nav class="navbar navbar-default navbar-fixed-top" id="Header">
+        <div class="container-fluid">
+            <!--Navbar Header Start Here-->
+            <div class="navbar-header">
+                <a class="navbar-brand" style="color: #ffffff" href="#">STATIONERY MANAGEMENT SYSTEM</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="footer" id="footer">
+        <label><bold>Contact us: 65-1234567</bold></label>
+    </div>
+
+    <body>
+        <table align="center" id="login">
+            <tr>
+                <th colspan="2" style="text-align: center">
+                    Employee Login
+                </th>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Username)</td>
+                <td>@Html.TextBoxFor(x => x.Username)</td>
+                <td>@Html.ValidationMessageFor(x => x.Username)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Password)</td>
+                <td>@Html.PasswordFor(x => x.Password)</td>
+                <td>@Html.ValidationMessageFor(x => x.Password)</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right"><input type="submit" value="Login" class="btn btn-primary" /></td>
+            </tr>
+        </table>
+    </body>
+
 }

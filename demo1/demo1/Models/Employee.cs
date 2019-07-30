@@ -19,6 +19,8 @@ namespace demo1.Models
         {
             this.DepartmentLists = new HashSet<DepartmentList>();
             this.RequisitionForms = new HashSet<RequisitionForm>();
+            this.DepartmentLists1 = new HashSet<DepartmentList>();
+            this.RequisitionForms1 = new HashSet<RequisitionForm>();
         }
     
         public string Id { get; set; }
@@ -29,10 +31,18 @@ namespace demo1.Models
         public string Password { get; set; }
         public string DepartmentCode { get; set; }
         public string Designation { get; set; }
+        public string SessionId { get; set; }
+        public Nullable<System.DateTime> DelegateFrom { get; set; }
+        public Nullable<System.DateTime> DelegateTo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DepartmentList> DepartmentLists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequisitionForm> RequisitionForms { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DepartmentList> DepartmentLists1 { get; set; }
+        public virtual DepartmentList DepartmentList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionForm> RequisitionForms1 { get; set; }
     }
 }

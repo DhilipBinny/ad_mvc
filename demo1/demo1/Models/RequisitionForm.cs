@@ -28,10 +28,12 @@ namespace demo1.Models
         public Nullable<System.DateTime> DateReceived { get; set; }
         public string Status { get; set; }
         public string Comments { get; set; }
+        public string Notification { get; set; }
     
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequisitionFormDetail> RequisitionFormDetails { get; set; }
         public virtual StoreClerk StoreClerk { get; set; }
+        public virtual Employee Employee1 { get; set; }
     }
 }

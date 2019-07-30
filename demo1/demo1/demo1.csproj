@@ -220,6 +220,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="image\profile.png" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -275,13 +276,15 @@
     <Content Include="Views\Hod\Index.cshtml" />
     <Content Include="Views\Employee\newrequest.cshtml" />
     <Content Include="Views\Employee\viewrequest.cshtml" />
-    <Content Include="Views\Hod\newststionaryrequest.cshtml" />
     <Content Include="Views\Hod\stationaryrequesthistory.cshtml" />
     <Content Include="Views\Hod\editdeptinfo.cshtml" />
     <Content Include="Views\Hod\assigndelegate.cshtml" />
     <Content Include="Views\Shared\_employeeheader.cshtml" />
     <Content Include="Views\Employee\sendmail.cshtml" />
     <Content Include="Views\Employee\viewemail.cshtml" />
+    <Content Include="Views\Hod\req_forms.cshtml" />
+    <Content Include="Views\Shared\_hodheader.cshtml" />
+    <Content Include="Views\Hod\dummy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

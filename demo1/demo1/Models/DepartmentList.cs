@@ -19,6 +19,7 @@ namespace demo1.Models
         {
             this.DisbursementLists = new HashSet<DisbursementList>();
             this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
+            this.Employees = new HashSet<Employee>();
         }
     
         public string DepartmentCode { get; set; }
@@ -35,5 +36,8 @@ namespace demo1.Models
         public virtual ICollection<DisbursementList> DisbursementLists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StationeryRetrievalFormDetail> StationeryRetrievalFormDetails { get; set; }
+        public virtual Employee Employee1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }
