@@ -19,6 +19,11 @@ else
     <a href='@Url.Action("newstationaryrequest", "Hod",new { id=emp.Id})' class="w3-bar-item w3-button w3-hover-blue">New Stationery Request</a>
     <a href='@Url.Action("stationaryrequesthistory", "Hod",new { id=emp.Id})' class="w3-bar-item w3-button w3-hover-blue">Stationery Request History</a>
     <a href='@Url.Action("editdeptinfo", "Hod",new { id=emp.Id})' class="w3-bar-item w3-button w3-hover-blue">Edit Dept Info</a>
-    <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id})' class="w3-bar-item w3-button w3-hover-blue">Delegate</a>
+
+    @if (emp.Designation=="Head")
+    {
+          <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id})' class="w3-bar-item w3-button w3-hover-blue">Delegate</a>
+    }
+    
 </div>
 

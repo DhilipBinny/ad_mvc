@@ -12,10 +12,38 @@ namespace demo1.Controllers
         // GET: Hod
         public ActionResult Index()
         {
+            Employee user = (Employee)Session["user"];
+            int count;
+            List<RequisitionForm> notify_form_list;
+            using (stationeryEntities1 db = new stationeryEntities1())
+            {
+                notify_form_list = db.RequisitionForms.Where(f=>f.Notification == "sent_to_hod" ).ToList();
+                count = db.RequisitionForms.Where(f => f.Notification == "sent_to_hod").Count();
+            }
+            Session["count"] = count;
+            Session["notify_form_list"] = notify_form_list;
             return View();
         }
-        public ActionResult req_forms(string form_id)
+        public ActionResult req_forms(string form_id, string notify)
         {
+            if (notify=="seen")
+            {
+                using (stationeryEntities1 db = new stationeryEntities1())
+                {
+                    db.RequisitionForms.Where(f => f.FormNumber == form_id).FirstOrDefault().Notification = "seen_by_hod";
+                    db.SaveChanges();
+                }
+            }
+            int count;
+            List<RequisitionForm> notify_form_list;
+            using (stationeryEntities1 db = new stationeryEntities1())
+            {
+                notify_form_list = db.RequisitionForms.Where(f => f.Notification == "sent_to_hod").ToList();
+                count = db.RequisitionForms.Where(f => f.Notification == "sent_to_hod").Count();
+            }
+            Session["count"] = count;
+            Session["notify_form_list"] = notify_form_list;
+
             Employee user = (Employee)Session["user"];
             List<RequisitionFormDetail> form_cart;
             RequisitionForm form;
@@ -48,13 +76,16 @@ namespace demo1.Controllers
         public ActionResult approve_reject(string form_id, string form_status, string comment, string approved_by)
         {
             Debug.WriteLine(form_id+form_status+comment);
+            string notify_status="";
             if (form_status.Equals("APPROVE"))
             {
                 form_status = "approved";
+                notify_status = "approved_by_hod";
             }
             else
             {
                 form_status = "rejected";
+                notify_status = "rejected_by_hod";
             }
             RequisitionForm form;
             using (stationeryEntities1 db = new stationeryEntities1())
@@ -64,9 +95,10 @@ namespace demo1.Controllers
                 form.Comments = comment;
                 form.DateApproved = DateTime.Now.Date;
                 form.ApprovedBy = approved_by;
+                form.Notification = notify_status;
                 db.SaveChanges();
             }
-            return View("index");
+            return RedirectToAction("Index", "Hod");
         }
 
         public ActionResult newstationaryrequest()

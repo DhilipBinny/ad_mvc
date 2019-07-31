@@ -15,10 +15,11 @@
 
 @Html.Partial("_employeeheader")
 @Html.Partial("_employeeMenuFragment")
+@Html.Partial("_emp_notify")
 
 <div style="margin-left:25%">
 
-    <h3>Form number = @(emp_dept.DepartmentCode+"/"+(1000+ int.Parse(form_number)).ToString())</h3>
+    <h3>Form number = @(emp_dept.DepartmentCode + "/" + (1000 + int.Parse(form_number)).ToString())</h3>
     <h3>Employee name : @emp.FirstName @emp.LastName</h3>
     <h3>Department name : @emp_dept.DepartmentName</h3>
 
@@ -41,7 +42,7 @@
                 </tr>
             }
         }
-        @if (form != null && form.Comments!="" && form.Comments!=null)
+        @if (form != null && form.Comments != "" && form.Comments != null)
         {
             <tr><td>COMMENTS :  @form.Comments</td></tr>
         }

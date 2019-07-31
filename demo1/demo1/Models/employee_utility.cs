@@ -134,8 +134,10 @@ namespace demo1.Models
                                                      select f).FirstOrDefault();
                 if (old_rec_to_update != null)
                 {
+                    old_rec_to_update.Notification = "sent_to_hod";
                     old_rec_to_update.DateReceived = DateTime.Now.Date;
                     old_rec_to_update.Status = "pending";
+                   
                 }
                 db.SaveChanges();
             }

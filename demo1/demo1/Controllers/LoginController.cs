@@ -39,11 +39,13 @@ namespace demo1.Controllers
                     if (user.Designation == "Head" || user.Designation == "Delegate")
                     {
                         Session.Add("user", user);
+                        Session.Add("count", 0);
                         return RedirectToAction("Index", "Hod");
                     }
                     else if (user.Designation == "Employee" || user.Designation=="Rep")
                     {
                         Session.Add("user", user);
+                        Session.Add("count", 0);
                         return RedirectToAction("Index", "Employee");
                     }
                 }

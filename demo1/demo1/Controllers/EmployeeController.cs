@@ -15,6 +15,16 @@ namespace demo1.Controllers
         public ActionResult Index(string id)
         {
             Employee user = (Employee)Session["user"];
+            Session["count"] = 0; 
+            int count;
+            List<RequisitionForm> notify_form_list;
+            using (stationeryEntities1 db = new stationeryEntities1())
+            {
+                notify_form_list = db.RequisitionForms.Where(f => f.EmployeeId == user.Id && (f.Notification == "approved_by_hod" || f.Notification == "rejected_by_hod")).ToList();
+                count = db.RequisitionForms.Where(f => f.EmployeeId == user.Id && (f.Notification == "approved_by_hod" || f.Notification == "rejected_by_hod")).Count();
+            }
+            Session["count"] = count;
+            Session["notify_form_list"] = notify_form_list;
             ViewData["userobj"] = user;
             return View();
         }
@@ -82,11 +92,34 @@ namespace demo1.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult view_single_request(string form_id)
+        public ActionResult view_single_request(string form_id, string notify)
         {
             employee_utility eu = new employee_utility();
             Employee user = (Employee)Session["user"];
-            
+            List<RequisitionForm> notify_form_list;
+            int count;
+            if (notify == "seen")
+            {
+                using (stationeryEntities1 db = new stationeryEntities1())
+                { 
+                    RequisitionForm old_rec_to_update = db.RequisitionForms.Where(e => e.FormNumber == form_id).FirstOrDefault();
+                    if (old_rec_to_update != null)
+                    {
+                        old_rec_to_update.Notification = "seen_by_emp";
+                    }
+                    db.SaveChanges();
+                }
+                
+            }
+            using (stationeryEntities1 db = new stationeryEntities1())
+            {
+                notify_form_list = db.RequisitionForms.Where(f => f.EmployeeId == user.Id && (f.Notification == "approved_by_hod" || f.Notification == "rejected_by_hod")).ToList();
+                count = db.RequisitionForms.Where(f => f.EmployeeId == user.Id && (f.Notification == "approved_by_hod" || f.Notification == "rejected_by_hod")).Count();
+            }
+
+            Session["count"] = count;
+            Session["notify_form_list"] = notify_form_list;
+
             ViewData["form_cart"] = eu.get_RequisitionFormDetails(form_id);
             ViewData["form_number"] = form_id;
             ViewData["emp"] = eu.get_employee(user);
@@ -107,6 +140,18 @@ namespace demo1.Controllers
         public ActionResult viewemail()
         {
             return View();
+        }
+        public ActionResult notify()
+        {
+            Employee user = (Employee)Session["user"];
+            List<RequisitionForm> notify_form_list;
+            using (stationeryEntities1 db = new stationeryEntities1())
+            {
+                notify_form_list = db.RequisitionForms.Where(f => f.EmployeeId == user.Id && (f.Notification == "approved_by_hod" || f.Notification == "rejected_by_hod")).ToList();
+            }
+            Session["count"] = null;
+            return RedirectToAction("index");
+
         }
     }
 }

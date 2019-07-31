@@ -285,6 +285,9 @@
     <Content Include="Views\Hod\req_forms.cshtml" />
     <Content Include="Views\Shared\_hodheader.cshtml" />
     <Content Include="Views\Hod\dummy.cshtml" />
+    <Content Include="Views\Employee\notify.cshtml" />
+    <Content Include="Views\Shared\_emp_notify.cshtml" />
+    <Content Include="Views\Shared\_hod_notify.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
