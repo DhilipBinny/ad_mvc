@@ -114,6 +114,7 @@ namespace demo1.Controllers
             ViewData["emp_list"] = emp_list;
             ViewData["userobj"] = user;
             ViewData["requestlist"] = requestlist;
+            ViewData["from_pending_reqs"] = true;
 
             return View("stationaryrequesthistory");
         }
@@ -260,6 +261,30 @@ namespace demo1.Controllers
             ViewData["req_form_details"] = req_form_details;
             ViewData["items"] = items;
             return View();
+        }
+
+
+        public JsonResult GetPerson()
+        {
+            Person person = new Person()
+            {
+                name = "John",
+                age = 32
+            };
+
+            return Json(person, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SetPerson(Person person)
+        {
+            if (person != null)
+            {
+                Debug.WriteLine("name=" + person.name + ", age=" + person.age);
+                return Json(new { status = "ok" });
+            }
+
+            return Json(new { status = "fail" });
         }
     }
 }

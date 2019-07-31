@@ -20,7 +20,7 @@
                 {
                 <p>
                     @*<a href="@Url.Action("view_single_request", "Employee", new { form_id = @item.FormNumber, notify="seen" })">@item.FormNumber @item.Notification</a>*@
-                    <a href="@Url.Action("req_forms", "Hod", new { form_id = @item.FormNumber, notify="seen" })">@item.FormNumber @item.Notification</a>
+                    <a href="@Url.Action("req_forms", "Hod", new { form_id = @item.FormNumber, notify="seen" })">@(emp.DepartmentCode + "/" + (1000 + int.Parse(item.FormNumber)).ToString()) @item.FormNumber @item.Notification</a>
                 </p>
                 }
                 
